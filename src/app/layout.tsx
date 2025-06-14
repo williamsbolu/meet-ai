@@ -32,3 +32,6 @@ export default function RootLayout({
     </html>
   );
 }
+
+// --turbopack
+// npx drizzle-kit push and npx drizzle-kit studio were added to the package scripts for easier reusability
