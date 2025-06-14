@@ -6,6 +6,11 @@ import { authClient } from "@/lib/auth-client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+/**
+ * Renders the main authentication UI, allowing users to sign up, log in, and sign out.
+ *
+ * Displays sign-up and login forms when no user is authenticated, and shows the current user's name with a sign-out option when logged in.
+ */
 export default function Home() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
