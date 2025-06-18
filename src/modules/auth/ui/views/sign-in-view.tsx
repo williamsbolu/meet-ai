@@ -4,8 +4,10 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { OctagonAlertIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -19,7 +21,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Alert, AlertTitle } from "@/components/ui/alert";
-import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 
 const formSchema = z.object({
@@ -28,9 +29,9 @@ const formSchema = z.object({
 });
 
 export function SignInView() {
-  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,15 +45,37 @@ export function SignInView() {
     setError(null);
     setLoading(true);
 
-    const {} = await authClient.signIn.email(
+    authClient.signIn.email(
       {
         email: data.email,
         password: data.password,
+        callbackURL: "/", // not really important here in credentials but i just left if
       },
       {
         onSuccess: () => {
           setLoading(false);
           router.push("/");
+        },
+        onError: ({ error }) => {
+          setLoading(false);
+          setError(error.message);
+        },
+      }
+    );
+  };
+
+  const onSocial = async (provider: "github" | "google") => {
+    setError(null);
+    setLoading(true);
+
+    authClient.signIn.social(
+      {
+        provider: provider,
+        callbackURL: "/",
+      },
+      {
+        onSuccess: () => {
+          setLoading(false);
         },
         onError: ({ error }) => {
           setLoading(false);
@@ -139,16 +162,18 @@ export function SignInView() {
                     variant="outline"
                     type="button"
                     className="w-full"
+                    onClick={() => onSocial("google")}
                   >
-                    Google
+                    <FaGoogle />
                   </Button>
                   <Button
                     disabled={loading}
                     variant="outline"
                     type="button"
                     className="w-full"
+                    onClick={() => onSocial("github")}
                   >
-                    Github
+                    <FaGithub />
                   </Button>
                 </div>
 
