@@ -10,7 +10,7 @@ import {
 
 const page = () => {
   const queryClient = getQueryClient();
-  void queryClient.prefetchQuery(trpc.agents.getMany.queryOptions()); // used server components to prefetch this query from the database
+  void queryClient.prefetchQuery(trpc.agents.getMany.queryOptions()); // used server components to prefetch this query from the database to be used on client components
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
