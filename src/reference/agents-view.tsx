@@ -1,9 +1,9 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
+import { useTRPC } from "@/trpc/client";
 import { ErrorState } from "@/components/error-state";
 import { LoadingState } from "@/components/loading-state";
-import { useTRPC } from "@/trpc/client";
-import { useQuery } from "@tanstack/react-query";
 
 export default function AgentsViewReference() {
   const trpc = useTRPC();
