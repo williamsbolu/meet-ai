@@ -37,12 +37,12 @@ export const AgentForm = ({
 
   const createAgent = useMutation(
     trpc.agents.create.mutationOptions({
-      onSuccess: () => {
-        // invalidate the get many query
-        queryClient.invalidateQueries(trpc.agents.getMany.queryOptions());
+      onSuccess: async () => {
+        // invalidate the get many query: "async" is not really needed here on this function just added it 😊
+        await queryClient.invalidateQueries(trpc.agents.getMany.queryOptions());
 
         if (initialValue?.id) {
-          queryClient.invalidateQueries(
+          await queryClient.invalidateQueries(
             trpc.agents.getOne.queryOptions({ id: initialValue.id })
           );
         }
