@@ -39,7 +39,9 @@ export const AgentForm = ({
     trpc.agents.create.mutationOptions({
       onSuccess: async () => {
         // invalidate the get many query: "async" is not really needed here on this function just added it 😊
-        await queryClient.invalidateQueries(trpc.agents.getMany.queryOptions());
+        await queryClient.invalidateQueries(
+          trpc.agents.getMany.queryOptions({})
+        );
 
         if (initialValue?.id) {
           await queryClient.invalidateQueries(
