@@ -8,7 +8,7 @@ import { LoadingState } from "@/components/loading-state";
 export default function AgentsViewReference() {
   const trpc = useTRPC();
   const { data, isLoading, isError } = useQuery(
-    trpc.agents.getMany.queryOptions()
+    trpc.agents.getMany.queryOptions({})
   );
 
   if (isLoading) {
@@ -31,4 +31,5 @@ export default function AgentsViewReference() {
   return <div>{JSON.stringify(data, null, 2)}</div>;
 }
 
+// 4:17:00
 // An example of using useQuery with a TRPC query for fetching data on client components without server side prefeching which is by default on this project. 4:17:00
