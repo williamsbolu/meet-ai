@@ -19,7 +19,7 @@ interface Props {
 }
 
 const page = async ({ searchParams }: Props) => {
-  const filters = await loadSearchParams(searchParams);
+  const filters = await loadSearchParams(searchParams); // for search params
 
   //? NOTE: trpc already protects our db query, so unauthorized users wont have access to what we don't want them to. This is just an extra layer of security for redirecting users to login
   const session = await auth.api.getSession({
