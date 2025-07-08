@@ -2,12 +2,13 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 
-import { AgentGetOne } from "../../types";
+import { AgentGetMany } from "../../types";
 import { GeneratedAvatar } from "@/components/generated-avatar";
 import { CornerDownRight, VideoIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
-export const columns: ColumnDef<AgentGetOne>[] = [
+// The "[number]" on MeeetingGetMany[number] is saying that the type is refering to an individual field on the get many query.
+export const columns: ColumnDef<AgentGetMany[number]>[] = [
   {
     accessorKey: "name",
     header: "Agent Name",
