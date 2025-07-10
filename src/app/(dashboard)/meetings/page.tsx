@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { ErrorBoundary } from "react-error-boundary";
 import { getQueryClient, trpc } from "@/trpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import type { SearchParams } from "nuqs/server";
+import { loadSearchParams } from "@/modules/meetings/params";
 import {
   MeetingsView,
   MeetingsViewError,
@@ -12,7 +14,13 @@ import {
 import { MeetingsListHeader } from "@/modules/meetings/ui/components/meetings-list-header";
 import { auth } from "@/lib/auth";
 
-const Page = async () => {
+interface Props {
+  searchParams: Promise<SearchParams>;
+}
+
+const Page = async ({ searchParams }: Props) => {
+  const filters = await loadSearchParams(searchParams);
+
   //? NOTE: trpc already protects our db query, so unauthorized users wont have access to what we don't want them to. This is just an extra layer of security for redirecting users to login
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -23,7 +31,9 @@ const Page = async () => {
   }
 
   const queryClient = getQueryClient();
-  void queryClient.prefetchQuery(trpc.meetings.getMany.queryOptions({}));
+  void queryClient.prefetchQuery(
+    trpc.meetings.getMany.queryOptions({ ...filters }) // the query options must correspond with the one passed into the client counterpart fetching the prefetched data on "MeetingsView" COMPONENT
+  );
 
   return (
     <>
