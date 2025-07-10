@@ -8,14 +8,14 @@ import { DataTable } from "@/components/data-table";
 import { columns } from "../components/columns";
 import { EmptyState } from "@/components/empty-state";
 import { useAgentFilters } from "../../hooks/use-agent-filters";
-import { DataPagination } from "../components/data-pagination";
+import { DataPagination } from "@/components/data-pagination";
 import { useRouter } from "next/navigation";
 
 export const AgentsView = () => {
+  const trpc = useTRPC();
   const router = useRouter();
   const [filters, setFilters] = useAgentFilters();
 
-  const trpc = useTRPC();
   const { data } = useSuspenseQuery(
     trpc.agents.getMany.queryOptions({ ...filters })
   ); // used useSuspenseQuery because this file is wrapped in a suspense boundary

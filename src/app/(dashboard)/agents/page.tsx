@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { getQueryClient, trpc } from "@/trpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { SearchParams } from "nuqs";
+import type { SearchParams } from "nuqs/server";
 import { auth } from "@/lib/auth";
 import {
   AgentsView,

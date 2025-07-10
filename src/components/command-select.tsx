@@ -26,14 +26,19 @@ export const CommandSelect = ({
   options,
   onSelect,
   searchValue,
-  onSearch,
+  onSearch, // tells the command select to not use the built in filter, we'll be using network filtering by passing this onSearch prop
   value,
   placeholder = "Select an option",
-
   className,
 }: Props) => {
   const [open, setOpen] = useState(false);
   const selectedOption = options.find((option) => option.value === value);
+
+  // I can also use this function to close the modal of the command select, which resets the CommandInput state to an empty string
+  // const handleOpenChange = (open: boolean) => {
+  //   setOpen(open);
+  //   onSearch?.("");
+  // };
 
   return (
     <>
@@ -53,11 +58,12 @@ export const CommandSelect = ({
       <CommandResponsiveDialog
         shouldFilter={!onSearch} // custom prop: 8:18:00: if we have onSearch its going to be "false" if we dont it would be "true"
         open={open}
+        // onOpenChange={handleOpenChange}
         onOpenChange={setOpen}
       >
         <CommandInput
           placeholder="Search..."
-          value={searchValue}
+          value={searchValue} // remove when using handleOpenChange()
           onValueChange={onSearch}
         />
         <CommandList>
@@ -72,6 +78,7 @@ export const CommandSelect = ({
               onSelect={() => {
                 onSelect(option.value);
                 setOpen(false);
+                // handleOpenChange(false)
               }}
             >
               {option.children}
