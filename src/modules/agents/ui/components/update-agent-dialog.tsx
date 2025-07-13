@@ -15,7 +15,7 @@ export const UpdateAgentDialog = ({
 }: UpdateAgentDialogProps) => {
   return (
     <ResponsiveDialog
-      title="Edt Agent"
+      title="Edit Agent"
       description="Edit the new agent details"
       open={open}
       onOpenChange={onOpenChange}
