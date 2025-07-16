@@ -5,14 +5,14 @@ import { Button } from "@/components/ui/button";
 
 interface Props {
   meetingId: string;
-  onCancelMeeing: () => void;
+  onCancelMeeting: () => void;
   isCancelling: boolean;
 }
 
 export default function UpcomingState({
   isCancelling,
   meetingId,
-  onCancelMeeing,
+  onCancelMeeting,
 }: Props) {
   return (
     <div className="bg-white rounded-lg px-4 py-5 flex flex-col gap-y-8 items-center justify-center">
@@ -26,7 +26,7 @@ export default function UpcomingState({
         <Button
           variant="secondary"
           className="w-full lg:w-auto"
-          onClick={onCancelMeeing}
+          onClick={onCancelMeeting}
           disabled={isCancelling}
         >
           <BanIcon />
