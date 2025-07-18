@@ -1,7 +1,6 @@
 "use client";
 
 import { format } from "date-fns";
-import humanizeDuration from "humanize-duration";
 import {
   CircleCheckIcon,
   CircleXIcon,
@@ -12,18 +11,10 @@ import {
 } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 
-import { cn } from "@/lib/utils";
+import { cn, formatDuration } from "@/lib/utils";
 import { MeeetingGetMany } from "../../types";
 import { GeneratedAvatar } from "@/components/generated-avatar";
 import { Badge } from "@/components/ui/badge";
-
-function formatDuration(seconds: number) {
-  return humanizeDuration(seconds * 100, {
-    largest: 1,
-    round: true,
-    units: ["h", "m", "s"],
-  });
-}
 
 const statusIconMap = {
   upcoming: ClockArrowUpIcon,
