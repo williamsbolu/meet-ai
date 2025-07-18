@@ -140,7 +140,7 @@ export async function POST(req: NextRequest) {
       .returning();
 
     if (!updatedMeeting) {
-      return NextResponse.json({ error: "Missing not found" }, { status: 404 });
+      return NextResponse.json({ error: "Meeting not found" }, { status: 404 });
     }
 
     // ? Call inngest background job to summarize the transcipts
