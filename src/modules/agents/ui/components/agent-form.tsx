@@ -80,8 +80,6 @@ export const AgentForm = ({
       },
       onError: (error) => {
         toast.error(error.message);
-
-        // TODO: check if error code is "FORBIDDEN", redirect to /upgrade
       },
     })
   );

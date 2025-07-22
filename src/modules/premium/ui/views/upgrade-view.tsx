@@ -19,7 +19,7 @@ export default function UpgradeView() {
     trpc.premium.getCurrentSubscription.queryOptions()
   );
 
-  console.log({ products, currentSubscription });
+  // console.log({ products, currentSubscription });
 
   return (
     <div className="flex-1 py-4 px-4 md:px-8 flex flex-col gap-y-10">
