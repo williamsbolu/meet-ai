@@ -1,10 +1,27 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { polar, checkout, portal } from "@polar-sh/better-auth";
+
 import * as schema from "@/db/schema";
 import { db } from "@/db";
+
+import { polarClient } from "./polar";
 // Our auth config was a bit different from the docs because of the auth-schema.ts file which i deleted and moved its contents to my main schema files. Thats why i added the schema directly also to the adapter to avoid errors
 
 export const auth = betterAuth({
+  plugins: [
+    polar({
+      client: polarClient,
+      createCustomerOnSignUp: true,
+      use: [
+        checkout({
+          authenticatedUsersOnly: true,
+          successUrl: "/upgrade",
+        }),
+        portal(),
+      ],
+    }),
+  ],
   database: drizzleAdapter(db, {
     provider: "pg",
     schema: {
