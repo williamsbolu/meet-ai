@@ -15,6 +15,8 @@ import { GeneratedAvatar } from "@/components/generated-avatar";
 import { Badge } from "@/components/ui/badge";
 import { useConfirm } from "@/hooks/use-confirm";
 import { UpdateAgentDialog } from "../components/update-agent-dialog";
+import { LoadingState } from "@/components/loading-state";
+import { ErrorState } from "@/components/error-state";
 
 interface Props {
   agentId: string;
@@ -107,5 +109,23 @@ export const AgentIdView = ({ agentId }: Props) => {
         </div>
       </div>
     </>
+  );
+};
+
+export const AgentIdViewLoading = () => {
+  return (
+    <LoadingState
+      title="Loading Agent"
+      description="This may take a few seconds"
+    />
+  );
+};
+
+export const AgentIdViewError = () => {
+  return (
+    <ErrorState
+      title="Error Loading Agent"
+      description="Please try again later"
+    />
   );
 };

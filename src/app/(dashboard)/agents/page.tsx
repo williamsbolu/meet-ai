@@ -18,7 +18,7 @@ interface Props {
   searchParams: Promise<SearchParams>;
 }
 
-const page = async ({ searchParams }: Props) => {
+const Page = async ({ searchParams }: Props) => {
   const filters = await loadSearchParams(searchParams); // for search params
 
   //? NOTE: trpc already protects our db query, so unauthorized users wont have access to what we don't want them to. This is just an extra layer of security for redirecting users to login
@@ -49,6 +49,6 @@ const page = async ({ searchParams }: Props) => {
   );
 };
 
-export default page;
+export default Page;
 
 // ? 6hr: 23min: expl of errors encountered when passing query params in useSuspenseQuery on the client side ignoring prefetched data on the serverside. causing the useSuspenseQuery to fallback to useQuery ignoring and disabling thr prefetch

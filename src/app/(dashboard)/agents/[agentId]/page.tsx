@@ -2,15 +2,17 @@ import { Suspense } from "react";
 import { getQueryClient, trpc } from "@/trpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
-import { AgentIdView } from "@/modules/agents/ui/views/agent-id-view";
-import { ErrorState } from "@/components/error-state";
-import { LoadingState } from "@/components/loading-state";
+import {
+  AgentIdView,
+  AgentIdViewError,
+  AgentIdViewLoading,
+} from "@/modules/agents/ui/views/agent-id-view";
 
 interface Props {
   params: Promise<{ agentId: string }>;
 }
 
-const page = async ({ params }: Props) => {
+const Page = async ({ params }: Props) => {
   const { agentId } = await params;
 
   const queryClient = getQueryClient();
@@ -29,22 +31,4 @@ const page = async ({ params }: Props) => {
   );
 };
 
-export default page;
-
-export const AgentIdViewLoading = () => {
-  return (
-    <LoadingState
-      title="Loading Agent"
-      description="This may take a few seconds"
-    />
-  );
-};
-
-export const AgentIdViewError = () => {
-  return (
-    <ErrorState
-      title="Error Loading Agent"
-      description="Please try again later"
-    />
-  );
-};
+export default Page;
