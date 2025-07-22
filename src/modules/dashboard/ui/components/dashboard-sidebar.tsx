@@ -15,10 +15,12 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { DashboardUserButton } from "./dashboard-user-button";
 import { cn } from "@/lib/utils";
+import { DashboardTrial } from "./dashboard-trial";
 
 const firstSection = [
   {
@@ -43,9 +45,10 @@ const secondSection = [
 
 export const DashboardSidebar = () => {
   const pathname = usePathname();
+  const { setOpenMobile } = useSidebar();
 
   return (
-    <Sidebar>
+    <Sidebar collapsible="offcanvas">
       <SidebarHeader className="">
         <Link href="/" className="flex items-center gap-2 px-2 pt-2">
           <Image src="/logo.svg" alt="Meet.AI" width={36} height={36} />
@@ -69,6 +72,7 @@ export const DashboardSidebar = () => {
                         "bg-linear-to-r/oklch border-[#5D6B68]/10"
                     )}
                     isActive={pathname === item.href}
+                    onClick={() => setOpenMobile(false)}
                   >
                     <Link href={item.href}>
                       <item.icon className="size-5" />
@@ -114,6 +118,7 @@ export const DashboardSidebar = () => {
       </SidebarContent>
 
       <SidebarFooter className="text-white">
+        <DashboardTrial />
         <DashboardUserButton />
       </SidebarFooter>
     </Sidebar>

@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { useRouter } from "next/navigation";
 
 interface AgentFormProps {
   onSuccess?: () => void;
@@ -33,6 +34,7 @@ export const AgentForm = ({
   onSuccess,
 }: AgentFormProps) => {
   const trpc = useTRPC();
+  const router = useRouter();
   const queryClient = useQueryClient();
 
   const createAgent = useMutation(
@@ -43,13 +45,20 @@ export const AgentForm = ({
           trpc.agents.getMany.queryOptions({})
         );
 
-        // TODO: Invalidate free tier usage
+        // Invalidate free tier usage
+        await queryClient.invalidateQueries(
+          trpc.premium.getFreeUsage.queryOptions()
+        );
+
         onSuccess?.();
       },
       onError: (error) => {
         toast.error(error.message);
 
-        // TODO: check if error code is "FORBIDDEN", redirect to /upgrade
+        // check if error code is "FORBIDDEN", redirect to /upgrade
+        if (error.data?.code === "FORBIDDEN") {
+          router.push("/upgrade");
+        }
       },
     })
   );

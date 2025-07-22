@@ -4,6 +4,7 @@ import { TRPCError } from "@trpc/server";
 import {
   // baseProcedure,
   createTRPCRouter,
+  premiumProcedure,
   protectedProcedure,
 } from "@/trpc/init";
 import { db } from "@/db";
@@ -89,7 +90,7 @@ export const agentsRouter = createTRPCRouter({
 
       return existingAgent;
     }),
-  create: protectedProcedure
+  create: premiumProcedure("agents")
     .input(agentsInsertSchema) // validation is done here
     .mutation(async ({ ctx, input }) => {
       const [createdAgent] = await db
