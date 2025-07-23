@@ -102,6 +102,7 @@ export const DashboardSidebar = () => {
                         "bg-linear-to-r/oklch border-[#5D6B68]/10"
                     )}
                     isActive={pathname === item.href}
+                    onClick={() => setOpenMobile(false)}
                   >
                     <Link href={item.href}>
                       <item.icon className="size-5" />

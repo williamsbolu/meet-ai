@@ -12,6 +12,7 @@ import {
   CommandGroup,
   CommandEmpty,
 } from "@/components/ui/command";
+import { VideoIcon } from "lucide-react";
 
 interface Props {
   open: boolean;
@@ -57,11 +58,7 @@ export const DashboardCommand = ({ open, setOpen }: Props) => {
                 setOpen(false);
               }}
             >
-              <GeneratedAvatar
-                seed={meeting.name}
-                variant="botttsNeutral"
-                className="size-5"
-              />
+              <VideoIcon className="!size-4.5" />
               {meeting.name}
             </CommandItem>
           ))}
