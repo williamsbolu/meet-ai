@@ -13,12 +13,15 @@ import {
 } from "@/modules/meetings/ui/views/meetings-view";
 import { MeetingsListHeader } from "@/modules/meetings/ui/components/meetings-list-header";
 import { auth } from "@/lib/auth";
+// import { caller } from "@/trpc/server";
 
 interface Props {
   searchParams: Promise<SearchParams>;
 }
 
 const Page = async ({ searchParams }: Props) => {
+  // const greeting = await caller.hello({ text: "Williams" }); // calling tcrp on server components
+
   const filters = await loadSearchParams(searchParams);
 
   //? NOTE: trpc already protects our db query, so unauthorized users wont have access to what we don't want them to. This is just an extra layer of security for redirecting users to login
